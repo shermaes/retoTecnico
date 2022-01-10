@@ -1,6 +1,5 @@
 package preguntario;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
@@ -20,6 +19,12 @@ public class Game {
 		return premio;
 	}
 
+	public Game() {
+
+	}
+
+	// getters and setters
+	@SuppressWarnings("static-access")
 	public int setPremio(int premio) {
 		return this.premio = premio;
 	}
@@ -28,99 +33,89 @@ public class Game {
 		return player;
 	}
 
+	@SuppressWarnings("static-access")
 	public String setPlayer(String player) {
 		return this.player = player;
 	}
 
-	public Game() {
-		
-	}
-	
-	
-    Banco banco = new Banco();
+	Banco banco = new Banco();
 	Scanner read = new Scanner(System.in);
 
 	// metodos
-
+	// Crea el jugador
+	@SuppressWarnings("resource")
 	public void createPlayer() {
 		Scanner read = new Scanner(System.in);
-		System.out.println("Bienvenido a ^Preguntario^ indique su nombre a continuacion");		
-		player = read.nextLine();	
-		System.out.println("Bienvenido " +player+ " empecemos a jugar!");
-		read.close();
+		System.out.println("Bienvenido a ^Preguntario^ indique su nombre a continuacion");
+		player = read.nextLine();
+		System.out.println("Bienvenido " + player + " empecemos a jugar!");
+
 	}
 
+	// Esqueleto del juego - Este ejecuta y llama las preguntas de la clase Banco
 	public void startGame() {
-        createPlayer();
+
+		createPlayer();
 		System.out.println("Los puntos a conseguir por cada ronda son: 100");
 		System.out.println("--------------------------------");
 		banco.questions1();
-		
+
 		if (banco.resultado == valida) {
 			ronda = ronda + 1;
 			premio = premio + 100;
-			System.out.println("Sigamos a la siguiente ronda "+player);
-		} else {
-			historico();
-		}
-
-		if (banco.resultado == valida) {
+			System.out.println("Sigamos a la siguiente ronda " + player);
 			System.out.println("--------------------------------");
+			System.out.println("Voy aca");
 			confirmExit();
+		}
+		if (banco.resultado == valida) {
 			System.out.println("--------------------------------");
 			banco.questions2();
 			if (banco.resultado == 1) {
 				ronda = ronda + 1;
 				premio = premio + 100;
-				System.out.println("Sigamos a la siguiente ronda "+player);
-			} else {
-				historico();
+				System.out.println("Sigamos a la siguiente ronda " + player);
+				System.out.println("--------------------------------");
+				confirmExit();
 			}
 		}
 
 		if (banco.resultado == valida) {
-			System.out.println("--------------------------------");
-			confirmExit();
 			System.out.println("--------------------------------");
 			banco.questions3();
 			if (banco.resultado == 1) {
 				ronda = ronda + 1;
 				premio = premio + 100;
-				System.out.println("Sigamos a la siguiente ronda "+player);
-			} else {
-				historico();
+				System.out.println("Sigamos a la siguiente ronda " + player);
+				System.out.println("--------------------------------");
+				confirmExit();
 			}
 		}
 
 		if (banco.resultado == valida) {
-			System.out.println("--------------------------------");
-			confirmExit();
 			System.out.println("--------------------------------");
 			banco.questions4();
 			if (banco.resultado == 1) {
 				ronda = ronda + 1;
 				premio = premio + 100;
-				
-				System.out.println("Sigamos a la siguiente ronda "+player);
-			} else {
-				historico();
+
+				System.out.println("Sigamos a la siguiente ronda " + player);
+				System.out.println("--------------------------------");
+				confirmExit();
 			}
 		}
 
 		if (banco.resultado == valida) {
-			System.out.println("--------------------------------");
-			confirmExit();
 			banco.questions5();
 			if (banco.resultado == 1) {
 				ronda = ronda + 1;
 				premio = premio + 100;
 				winner();
-				historico();
 			}
 		}
-
-	
 	}
+
+	// metodo que pregunta al jugador si se quiere retirar o seguir avanzando
 	public void confirmExit() {
 		System.out.println("Desea retirarse con lo que lleva acumulado?\n Indique 1 para si o 0 para no");
 		salida = read.nextInt();
@@ -128,12 +123,11 @@ public class Game {
 			System.out.println("Usted ha salido del juego con una puntuacion de: " + premio);
 			continuar();
 		} else {
-
 			System.out.println("Usted ha pasado a la " + ronda + " ronda con " + premio + " puntos");
-
 		}
 	}
 
+	// metodo que da un mensaje de que se ha ganado el juego
 	public void winner() {
 		System.out.println("________$$$$\r\n" + "_______$$__$\r\n" + "_______$___$$\r\n" + "_______$___$$\r\n"
 				+ "_______$$___$$\r\n" + "________$____$$\r\n" + "________$$____$$$\r\n" + "_________$$_____$$\r\n"
@@ -147,32 +141,24 @@ public class Game {
 		System.out.println("Usted ha ganado ^Preguntario^ con un total de " + premio + " puntos");
 	}
 
+	// metodo que da el mensaje de que se perdio el juego
 	public void loser(String player) {
-
 		premio = 0;
 		System.out.println("Usted ha perdido esta ronda y sus premios");
-		banco.resultado=3;
+		banco.resultado = 3;
 	}
 
-	public void historico() {
-		ArrayList<String> listPlayers = new ArrayList<String>();
-		listPlayers.add(player);
-		System.out.println("-----------------------------------");
-		System.out.println("Historial de jugadores");
-		for (int i = 0; i < listPlayers.size(); i++) {
-			System.out.println("Jugador:" + listPlayers.get(i));
+	// metodo que ofrece una nueva partida
+	public void continuar() {
+		System.out.println(
+				"Confirme que dejara de jugar presionando cualquier numero menos 1");
+		k = read.nextInt();
+		if (k == valida) {
+			startGame();
+		} else {
+			banco.resultado = 3;
+			System.out.println("Gracias por jugar a ^Preguntario^");
 		}
+
 	}
-
-    public void continuar() {
-    	System.out.println("Que pase el siguiente jugador!\n Si desea continuar presione 1\n Si dejara de jugar presione 0");
-    	k = read.nextInt();
-    	if(k==1) {
-    		startGame();
-    	}else {
-    	System.out.println("Gracias por jugar a ^Preguntario^");
-    	}
-		}
-    	
-    }
-
+}

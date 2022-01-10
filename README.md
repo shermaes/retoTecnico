@@ -1,7 +1,7 @@
 "RETO TECNICO" 
 
 La base de datos esta creada en en mysql 5
-
+-Cargar el driver JDBC
 -El password de root debe dejarse en blanco
 
 Para crear la bd de datos debemos ejecutar desde la consola el siguiente comando:

@@ -6,9 +6,9 @@ public class Main {
 
 		Game game = new Game();
 		game.startGame();
-		game.continuar();
-        Conexion conexion = new Conexion();
-        conexion.getConnection();
-        conexion.createStatement();
+		Conexion conexion = new Conexion();
+		conexion.getConnection();
+		conexion.createStatement();
+		conexion.consultaHistorial();
 	}
 }

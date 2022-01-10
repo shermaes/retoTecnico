@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.concurrent.ThreadLocalRandom;
-import java.io.*;
 
 public class Banco {
 
@@ -17,9 +15,6 @@ public class Banco {
 
 	// constructores
 	public Banco() {
-		super();
-		this.pregunta = pregunta;
-		this.respuestaC = respuestaC;
 	}
 
 	public Banco(String pregunta, int respuestaC) {
@@ -124,8 +119,10 @@ public class Banco {
 		randomPick(ejemploLista);
 	}
 
+	@SuppressWarnings("static-access")
 	public int randomPick(List<Banco> ejemploLista) {
 		Random rand = new Random();
+		@SuppressWarnings("resource")
 		Scanner read = new Scanner(System.in);
 		Game game1 = new Game();
 		int index = rand.nextInt(ejemploLista.size());
